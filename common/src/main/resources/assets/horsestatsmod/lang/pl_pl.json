@@ -1,0 +1,23 @@
+{
+  "horsestatsmod.stats": "Dane",
+  "horsestatsmod.health": "Zdrowie",
+  "horsestatsmod.jump_height": "Skok",
+  "horsestatsmod.speed": "Szybkość",
+  "horsestatsmod.slots": "Sloty",
+  "horsestatsmod.blocks": "bloki",
+  "horsestatsmod.overall": "Ogólnie",
+  "horsestatsmod.meters_per_seconds": "m/s",
+  "horsestatsmod.player": "Gracz",
+  "horsestatsmod.walk": "chód",
+  "horsestatsmod.sprint": "bieg",
+  "horsestatsmod.min": "min.",
+  "horsestatsmod.max": "max.",
+  "horsestatsmod.loading": "Ładowanie...",
+  "horsestatsmod.owner": "Właściciel",
+  "horsestatsmod.configuration.HorseStatsMod": "Konfiguracja moda HorseStatsMod",
+  "text.autoconfig.horsestatsmod.title": "Konfiguracja moda HorseStatsMod",
+  "text.autoconfig.horsestatsmod.option.modConfig": "Konfiguracja moda HorseStatsMod",
+  "text.autoconfig.horsestatsmod.option.modConfig.displayStatsInInventory": "Wyświetlanie statystyk w końskim ekwipunku",
+  "text.autoconfig.horsestatsmod.option.modConfig.coloredStats": "Wyświetlanie statystyk z użyciem kolorów",
+  "text.autoconfig.horsestatsmod.option.modConfig.displayMinMax": "Wyświetlanie statystyk z wartościami min. i max."
+}
