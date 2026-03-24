@@ -162,33 +162,33 @@ public class DisplayService {
             // the horse's name
 
             // It is possible to open the GUI without riding a horse!
-            //if (stats.name().length() <= 6) {
-            //    drawText(guiGraphics, I18n.get(I18nKeys.STATS) + ":", rx, ry, 0Xff444444);
-            //}
+            if (stats.name().length() <= 6) {
+                drawText(guiGraphics, I18n.get(I18nKeys.STATS) + ":", rx, ry, 0Xff444444);
+            }
         } else {
-            rx = 50;
+            rx = 60;
             // 7 is the maximum number of letters for "Stats" to be displayed, because otherwise it overlaps with
             // the horse's name
 
             // It is possible to open the GUI without riding a horse!
-            //if (stats.name().length() <= 8) {
-            //    drawText(guiGraphics, I18n.get(I18nKeys.STATS) + ":", rx, ry, 0Xff444444);
-            //}
+            if (stats.name().length() <= 8) {
+                drawText(guiGraphics, I18n.get(I18nKeys.STATS) + ":", rx, ry, 0Xff444444);
+            }
         }
 
 
         switch (config.getGroupedStats()) {
             case GroupedKind.GROUPED :
-                rx += 24;
+                rx += 33;
                 drawText(guiGraphics,
-                    stats.getGroupedStatsStr(),
-                    rx, ry,
-                    config.getColoredStats() ? getColorHex(stats.getGroupedStats(), 0, 100) : 0Xff444444
+                        stats.getGroupedStatsStr(),
+                        rx, ry,
+                        config.getColoredStats() ? getColorHex(stats.getGroupedStats(), 0, 100) : 0Xff444444
                 );
             break;
             case GroupedKind.INDIVIDUAL :
                 // Health (30 units shift to the right)
-                rx += 30;
+                rx += 33;
                 drawText(guiGraphics,
                         stats.getHealthStr(config.getDisplayStatsInPercentage()),
                         rx, ry,
@@ -210,7 +210,7 @@ public class DisplayService {
                 }
 
                 // Speed (24 units shift to the right, not the same as before because jump max is x.xx and not xx.xx)
-                rx += 40;
+                rx += 24;
                 drawText(guiGraphics,
                         stats.getSpeedStr(config.getDisplayStatsInPercentage()),
                         rx, ry,
@@ -219,7 +219,7 @@ public class DisplayService {
                 if (posInRect(containerMouseX, containerMouseY, rx - 2, ry - 2, rw, rh)) {
                     drawSpeed = true;
                 }
-            break;
+                break;
             case GroupedKind.GROUPED_AND_INDIVIDUAL :
                 // Individual part
                 // Health (33 units shift to the right)
