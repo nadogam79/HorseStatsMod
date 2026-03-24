@@ -1,5 +1,6 @@
 package dev.gallon.domain;
 
+import dev.gallon.services.JumpHeightConverter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -333,16 +334,32 @@ public record HorseStats(
         return computePercentage(slots.orElse(minSlots()), minSlots(), maxSlots());
     }
 
+    //overlay 스탯 표시
+    public @NotNull String getOverlayHealthStr(Boolean percentage) {
+        return percentage ? (getHealthPercentage() + "%") : String.format("%.2f", health);
+    }
+
+    public @NotNull String getOverlayJumpHeightStr(Boolean percentage) {
+        return percentage ? (getJumpHeightPercentage() + "%") : String.valueOf((int) Math.round(jumpHeight * 1000000));
+    }
+
+    public @NotNull String getOverlaySpeedStr(Boolean percentage) {
+        return percentage ? (getSpeedPercentage() + "%") : String.valueOf((int) Math.round(speed * 1000000));
+    }
+    // 인벤 스탯 표시
     public @NotNull String getHealthStr(Boolean percentage) {
         return percentage ? (getHealthPercentage() + "%") : String.format("%.0f", health);
     }
 
     public @NotNull String getJumpHeightStr(Boolean percentage) {
-        return percentage ? (getJumpHeightPercentage() + "%") : String.valueOf((int)Math.round(jumpHeight * 1000000));
+        if (percentage) {
+            return getJumpHeightPercentage() + "%";
+        }
+        return String.format("%.2f", JumpHeightConverter.toDisplayValue(jumpHeight));
     }
 
     public @NotNull String getSpeedStr(Boolean percentage) {
-        return percentage ? (getSpeedPercentage() + "%") : String.valueOf((int)Math.round(speed * 1000000));
+        return percentage ? (getSpeedPercentage() + "%") : String.format("%.2f", speed * 43.17);
     }
 
     public @NotNull String getSlotsStr(Boolean percentage) {

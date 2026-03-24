@@ -1,5 +1,7 @@
 package dev.gallon.services;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
@@ -175,5 +177,9 @@ public class JumpHeightConverter {
         double y1 = highEntry.getValue();
 
         return y0 + (jumpStrength - x0) * (y1 - y0) / (x1 - x0);
+    }
+
+    public static double toDisplayValue(@NotNull Double jumpHeight) {
+        // 변환 로직
     }
 }
