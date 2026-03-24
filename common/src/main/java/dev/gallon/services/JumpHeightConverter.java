@@ -180,6 +180,6 @@ public class JumpHeightConverter {
     }
 
     public static double toDisplayValue(@NotNull Double jumpHeight) {
-        // 변환 로직
+        return getJumpHeight(jumpHeight);
     }
 }
