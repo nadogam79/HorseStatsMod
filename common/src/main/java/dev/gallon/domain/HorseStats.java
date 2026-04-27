@@ -9,6 +9,8 @@ public record HorseStats(
         @NotNull Double health,
         @NotNull Double jumpHeight,
         @NotNull Double speed,
+        @NotNull Double jumpStrength,
+        @NotNull Double movementSpeed,
         @NotNull Optional<Integer> slots,
         @NotNull Optional<String> owner,
         @NotNull MountType mountType
@@ -347,6 +349,18 @@ public record HorseStats(
 
     public @NotNull String getSlotsStr(Boolean percentage) {
         return percentage ? (getSlotsPercentage() + "%") : slots.orElse(0).toString();
+    }
+
+    public @NotNull String getOverlayHealthStr() {
+        return String.format("%.2f", health);
+    }
+
+    public @NotNull String getOverlayJumpStrengthStr() {
+        return String.format("%.6f", jumpStrength);
+    }
+
+    public @NotNull String getOverlayMovementSpeedStr() {
+        return String.format("%.6f", movementSpeed);
     }
 
     public @NotNull Integer getGroupedStats() {

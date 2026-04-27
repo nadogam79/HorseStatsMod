@@ -35,6 +35,8 @@ public class HorseStatsService {
                             health,
                             JumpHeightConverter.getJumpHeight(jump),
                             convertSpeedToBlocksPerSeconds(speed),
+                            jump,
+                            speed,
                             Optional.ofNullable(slots == 0 ? null : slots),
                             ownerUUID.flatMap(usernameCache::getUnchecked),
                             switch (horse) {

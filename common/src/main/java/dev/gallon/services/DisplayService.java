@@ -324,64 +324,15 @@ public class DisplayService {
                         ))
                 );
             case GroupedKind.INDIVIDUAL :
-                return Component.literal(
-                    I18n.get(I18nKeys.HEALTH) + ": " +
-                            (displayMin ? ("" + ChatFormatting.RED + stats.minHealth() + ChatFormatting.RESET + "/") : "") +
-                            getColorTextFormat(stats.health(), stats.minHealth(), stats.maxHealth()) + stats.getHealthStr(config.getDisplayStatsInPercentage()) +
-                            (displayMax ? (ChatFormatting.RESET + "/" + ChatFormatting.GREEN + stats.maxHealth()) : "") +
-                            ChatFormatting.RESET + " " +
-                            I18n.get(I18nKeys.JUMP_HEIGHT) + ": " +
-                            (displayMin ? ("" + ChatFormatting.RED + stats.minJumpHeight() + ChatFormatting.RESET + "/") : "") +
-                            getColorTextFormat(stats.jumpHeight(), stats.minJumpHeight(), stats.maxJumpHeight()) + stats.getJumpHeightStr(config.getDisplayStatsInPercentage()) +
-                            (displayMax ? (ChatFormatting.RESET + "/" + ChatFormatting.GREEN + stats.maxJumpHeight()) : "") +
-                            ChatFormatting.RESET + " " +
-                            I18n.get(I18nKeys.SPEED) + ": " +
-                            (displayMin ? ("" + ChatFormatting.RED + stats.minSpeed() + ChatFormatting.RESET + "/") : "") +
-                            getColorTextFormat(stats.speed(), stats.minSpeed(), stats.maxSpeed()) + stats.getSpeedStr(config.getDisplayStatsInPercentage()) +
-                            (displayMax ? (ChatFormatting.RESET + "/" + ChatFormatting.GREEN + stats.maxSpeed()) : "") +
-                            ChatFormatting.RESET + " " +
-                            (stats.slots().isEmpty() ? "" : (
-                                    I18n.get(I18nKeys.SLOTS) + ": " +
-                                            (displayMin ? ("" + ChatFormatting.RED + stats.minSlots() + ChatFormatting.RESET + "/") : "") +
-                                            getColorTextFormat(stats.slots().get(), stats.minSlots(), stats.maxSlots()) + stats.getSlotsStr(config.getDisplayStatsInPercentage()) +
-                                            (displayMax ? (ChatFormatting.RESET + "/" + ChatFormatting.GREEN + stats.maxSlots()) : "")
-                            )) + ChatFormatting.RESET + " " +
-                            (stats.owner().isEmpty() ? "" : (
-                                    I18n.get(I18nKeys.OWNER) + ": " + stats.owner().get()
-                            ))
-                );
+                return Component.literal(buildCompactOverlayStats(stats));
+
             case GroupedKind.GROUPED_AND_INDIVIDUAL :
                 return Component.literal(
-                    I18n.get(I18nKeys.HEALTH) + ": " +
-                            (displayMin ? ("" + ChatFormatting.RED + stats.minHealth() + ChatFormatting.RESET + "/") : "") +
-                            getColorTextFormat(stats.health(), stats.minHealth(), stats.maxHealth()) + stats.getHealthStr(config.getDisplayStatsInPercentage()) +
-                            (displayMax ? (ChatFormatting.RESET + "/" + ChatFormatting.GREEN + stats.maxHealth()) : "") +
-                            ChatFormatting.RESET + " " +
-                            I18n.get(I18nKeys.JUMP_HEIGHT) + ": " +
-                            (displayMin ? ("" + ChatFormatting.RED + stats.minJumpHeight() + ChatFormatting.RESET + "/") : "") +
-                            getColorTextFormat(stats.jumpHeight(), stats.minJumpHeight(), stats.maxJumpHeight()) + stats.getJumpHeightStr(config.getDisplayStatsInPercentage()) +
-                            (displayMax ? (ChatFormatting.RESET + "/" + ChatFormatting.GREEN + stats.maxJumpHeight()) : "") +
-                            ChatFormatting.RESET + " " +
-                            I18n.get(I18nKeys.SPEED) + ": " +
-                            (displayMin ? ("" + ChatFormatting.RED + stats.minSpeed() + ChatFormatting.RESET + "/") : "") +
-                            getColorTextFormat(stats.speed(), stats.minSpeed(), stats.maxSpeed()) + stats.getSpeedStr(config.getDisplayStatsInPercentage()) +
-                            (displayMax ? (ChatFormatting.RESET + "/" + ChatFormatting.GREEN + stats.maxSpeed()) : "") +
-                            ChatFormatting.RESET +
-                            (stats.slots().isEmpty() ? "" : (
-                                    " " + I18n.get(I18nKeys.SLOTS) + ": " +
-                                            (displayMin ? ("" + ChatFormatting.RED + stats.minSlots() + ChatFormatting.RESET + "/") : "") +
-                                            getColorTextFormat(stats.slots().get(), stats.minSlots(), stats.maxSlots()) + stats.getSlotsStr(config.getDisplayStatsInPercentage()) +
-                                            (displayMax ? (ChatFormatting.RESET + "/" + ChatFormatting.GREEN + stats.maxSlots()) : "")
-                            )) + ChatFormatting.RESET + " " +
-                            (stats.owner().isEmpty() ? "" : (
-                                    I18n.get(I18nKeys.OWNER) + ": " + stats.owner().get()
-                            )) +
-                            ChatFormatting.RESET + " " +
-                            I18n.get(I18nKeys.OVERALL) + ": " +
-                            getColorTextFormat(stats.getGroupedStats(),0, 100) + stats.getGroupedStatsStr() +
-                            ChatFormatting.RESET + " " + (stats.owner().isEmpty() ? "" : (
-                                    I18n.get(I18nKeys.OWNER) + ": " + stats.owner().get()
-                            ))
+                        buildCompactOverlayStats(stats) +
+                                " " +
+                                I18n.get(I18nKeys.OVERALL) + ": " +
+                                getColorTextFormat(stats.getGroupedStats(), 0, 100) + stats.getGroupedStatsStr() +
+                                ChatFormatting.RESET
                 );
         }
     }
@@ -509,5 +460,17 @@ public class DisplayService {
         // to check if the mouse is inside or not. This multiplication prevents doing a lot more when calling this
         // function. Just ignore that, act like if it worked as intended. It's a little hack.
         return (px >= rx && px <= rx + rw) && (py >= ry && py <= ry + rh);
+    }
+
+    private static String buildCompactOverlayStats(@NotNull HorseStats stats) {
+        return I18n.get(I18nKeys.HEALTH) + ": " +
+                getColorTextFormat(stats.health(), 15, 30) + stats.getOverlayHealthStr() +
+                ChatFormatting.RESET + " " +
+                I18n.get(I18nKeys.JUMP_HEIGHT) + ": " +
+                getColorTextFormat(stats.jumpStrength(), 0.4, 1.0) + stats.getOverlayJumpStrengthStr() +
+                ChatFormatting.RESET + " " +
+                I18n.get(I18nKeys.SPEED) + ": " +
+                getColorTextFormat(stats.movementSpeed(), 0.1125, 0.3375) + stats.getOverlayMovementSpeedStr() +
+                ChatFormatting.RESET;
     }
 }
